@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>干支チェッカー</title>
+    <style>
+        h2, h3, p, input {
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            width: 250px;
+        }
+
+        .btn {
+            display: block;
+            margin: 0 auto;
+            background-color: #5FC6FC;
+            color: white;
+            padding: 10px 18px;
+            border-width: 0;
+            transition: 1.0s;
+        }
+
+        .btn:hover {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <h2>干支チェッカー</h2>
+    <p>西暦 <input type="number" id="year"> 年</p>
+    <input type="button" class="btn" onclick="pushButton()" value="この年の干支をチェック!">
+    <h3 id="insert-text"></h3>
+    <img id="insert-img">
+
+    <script>
+        
+        function pushButton() {
+            var year = document.getElementById('year').value;
+            var element = document.getElementById('insert-text');
+            validateInput(year, element);
+        }
+
+        // 正常な入力がされているかを検証
+        function validateInput(year, element) {
+            if (!year) {
+                element.textContent = "年数が入力されていません。";
+                document.getElementById('insert-img').src = "";
+            } else if (year < 0) {
+                element.textContent = "年数が正しく入力されていません。";
+                document.getElementById('insert-img').src = "";
+            } else {
+                drawEtoInfo(year, element);
+            }
+        }
+
+        /*  
+            干支の情報を出力    
+
+            【「西暦yの12による剰余」と干支の対応表】
+            0 => 申, 1 => 酉, 2 => 戌, 3 => 亥, 4 => 子, 5 => 丑,
+            6 => 寅, 7 => 卯, 8 => 辰, 9 => 巳, 10 => 午, 11 => 未.
+        */
+        function drawEtoInfo(year, element) {
+            var remainder = year % 12;
+            var eto;
+            var imgSrc;
+            switch (remainder) {
+                case 0:
+                    eto = "申";
+                    imgSrc = "img/eto9.png";
+                    break;
+                case 1:
+                    eto = "酉";
+                    imgSrc = "img/eto10.png";
+                    break;
+                case 2:
+                    eto = "戌";
+                    imgSrc = "img/eto11.png";
+                    break;
+                case 3:
+                    eto = "亥";
+                    imgSrc = "img/eto12.png";
+                    break;
+                case 4:
+                    eto = "子";
+                    imgSrc = "img/eto1.png";
+                    break;
+                case 5:
+                    eto = "丑";
+                    imgSrc = "img/eto2.png";
+                    break;
+                case 6:
+                    eto = "寅";
+                    imgSrc = "img/eto3.png";
+                    break;
+                case 7:
+                    eto = "卯";
+                    imgSrc = "img/eto4.png";
+                    break;
+                case 8:
+                    eto = "辰";
+                    imgSrc = "img/eto5.png";
+                    break;
+                case 9:
+                    eto = "巳";
+                    imgSrc = "img/eto6.png";
+                    break;
+                case 10:
+                    eto = "午";
+                    imgSrc = "img/eto7.png";
+                    break;
+                case 11:
+                    eto = "未";
+                    imgSrc = "img/eto8.png";
+            }
+            element.textContent = year + "年は" + eto + "年です。";
+            document.getElementById('insert-img').src = imgSrc;
+        }
+        
+    </script>
+</body>
+</html>
